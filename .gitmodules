@@ -1,0 +1,3 @@
+[submodule "QRGen"]
+	path = QRGen
+	url = https://github.com/h0nus/QRGen.git

@@ -1,0 +1,8 @@
+version: '3.1'
+
+services:
+  qrcodegen:
+    container_name: QRCodeGen
+    build: ./QRCodeGenerator
+    volumes:
+      - "./QRCodeGenerator:/app"

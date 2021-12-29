@@ -1,24 +1,21 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 *-*
+#
+#   From github.com/h0nus/QRGen (v0.1)
+#   Credits to h0nus
+# ---------------------------------
+#   Edited version 
+#
+
 import qrcode
 import subprocess
 import sys
 import os
 import argparse
 from PIL import Image
-qr_version="0.1"
-banner='''
-  e88 88e   888 88e    e88'Y88
- d888 888b  888 888D  d888  'Y   ,e e,  888 8e
-C8888 8888D 888 88"  C8888 eeee d88 88b 888 88b
- Y888 888P  888 b,    Y888 888P 888   , 888 888
-  "88 88"   888 88b,   "88 88"   "YeeP" 888 888
-      b
-      8b,    {}'''.format("QRGen ~ v"+qr_version+" ~ by h0nus\n")
-print(banner)
-#print('Tool to generate Malformed QRCodes for fuzzing QRCode parsers/reader\n')
+
+qr_version="0.1.1e"
+
 parser = argparse.ArgumentParser(description="Tool to generate Malformed QRCodes for fuzzing QRCode parsers/reader",
-                                 usage='''qrgen.py -l [number]\nusage: qrgen.py -w [/path/to/custom/wordlist]\n\nPayload lists:
+                                 usage='''main.py -l [number]\nusage: qrgen.py -w [/path/to/custom/wordlist]\n\nPayload lists:
 0 : SQL Injections
 1 : XSS
 2 : Command Injection
@@ -74,8 +71,3 @@ for i in range(0, len(payloads)):
     img.save("genqr/payload-{}.png".format(i))
     
 print("Generated {} payloads!".format(len(payloads)))
-if(len(payloads)>0):	
-	  Image.open("genqr/payload-{}.png".format(i-1)).show()
-	  print("Opening last generated payload...")
-    
-print("Thanks for using QRGen, made by H0nus..")

@@ -2,8 +2,14 @@ name: Python Checker
 
 on: 
   push:
+    branches: 
+    - master
     paths:
     - 'QRCodeGenerator/**'
+  pull_request:
+    branches: 
+    - 'feature/**'
+    - master
 
 jobs:
   build:

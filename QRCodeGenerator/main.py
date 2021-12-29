@@ -2,7 +2,7 @@
 #   From github.com/h0nus/QRGen (v0.1)
 #   Credits to h0nus
 # ---------------------------------
-#   Edited version 
+#   Edited version v0.1.1e
 #
 
 import qrcode

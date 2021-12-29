@@ -2,6 +2,10 @@
 
 Analysis on QR codes as Attack Vectors - Computer &amp; Network Security Course @ UniPD
 
+## Build status
+
+[![Python Checker](https://github.com/Maxelweb/QRCodeAnalysisCNS/actions/workflows/python-checker.yml/badge.svg)](https://github.com/Maxelweb/QRCodeAnalysisCNS/actions/workflows/python-checker.yml)
+
 
 ## Useful links
 
@@ -22,5 +26,5 @@ Analysis on QR codes as Attack Vectors - Computer &amp; Network Security Course 
 ## Credits
 
 - Federico Carboni
-- Denis Donadel
+- Denis Donadel (project leader)
 - Mariano Sciacco

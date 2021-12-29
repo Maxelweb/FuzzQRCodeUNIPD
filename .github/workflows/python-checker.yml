@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env: 
+      working-dir: ./QRCodeGenerator
+      generation-dir: genqr
 
     steps:
       - name: checkout repo content
@@ -18,9 +21,12 @@ jobs:
           python-version: '3.9'
           cache: 'pip'
       - name: install pip dependencies
-        run: pip install -r QRCodeGenerator/requirements.txt
+        run: pip install -r requirements.txt
+        working-directory: ${{env.working-dir}}
       - name: execute python script
         run: |
           python main.py -l 0
+        working-directory: ${{env.working-dir}}
       - name: check correct image creation
-        run: find -L genqr -name "*.png"
+        run: find -L ${{env.generation-dir}} -name "*.png"
+        working-directory: ${{env.working-dir}}

@@ -1,0 +1,38 @@
+name: Python Checker
+
+on: 
+  push:
+    branches: 
+    - master
+    paths:
+    - 'QRCodeGenerator/**'
+  pull_request:
+    branches: 
+    - 'feature/**'
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+      working-dir: ./QRCodeGenerator
+      generation-dir: genqr
+
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - name: install pip dependencies
+        run: pip install -r requirements.txt
+        working-directory: ${{env.working-dir}}
+      - name: execute python script
+        run: |
+          python main.py -l 0
+        working-directory: ${{env.working-dir}}
+      - name: check correct image creation
+        run: find -L ${{env.generation-dir}} -name "*.png"
+        working-directory: ${{env.working-dir}}

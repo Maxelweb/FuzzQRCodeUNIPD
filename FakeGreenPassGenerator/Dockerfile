@@ -1,9 +1,3 @@
-#
-#  ArduTracker Server
-#
-#  Collector
-#
-
 FROM python:3.9-buster
 COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app

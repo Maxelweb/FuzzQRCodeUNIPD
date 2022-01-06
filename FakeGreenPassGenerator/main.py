@@ -14,6 +14,10 @@ tomorrow = datetime.timestamp(datetime.now()) + (7 * 86400)
 
 PRIVKEY = b"9d370d925476752486ab0e4a8e088228e493da12d1586fafae9f35880dbcfe03"
 HEADER = b""
+
+
+# Not sure if it is still valid
+
 pass_data = {
     1: "DE",
     -260: {
@@ -76,6 +80,7 @@ pass_data2 = {
     6: tomorrow,
 }
 
+# Structure should be valid
 
 pass_data3 = {
         4: 1683849600,
@@ -116,13 +121,15 @@ def main():
     payloads = get_words(opt)
 
     for i, p in enumerate(payloads):
-        pass_data[1] = p.encode()
+        pass_data3[1] = p.encode() # TODO: to change in something more advanced
         msg = get_cose(pass_data3)
         msg = add_cose_key(msg, PRIVKEY)
-        msg = flynn(msg.encode())
+        msg = flynn(msg.encode(), HEADER)
         msg = b45(msg)
         msg = b"HC1:" + msg
+        print("RAW certificate: ", msg)
         print_qrs(msg, i)
+        print("-"*20)
 
 
 def cmd():

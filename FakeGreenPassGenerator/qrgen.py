@@ -16,6 +16,7 @@ lists = [
     "words/strfuzz.txt",
     "words/ssi.txt",
     "words/lfi.txt",
+    "words/test.txt" # for testing purpose
 ]
 
 

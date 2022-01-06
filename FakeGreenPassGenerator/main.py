@@ -1,9 +1,12 @@
 from qrgen import *
 from passgen import *
+from datetime import datetime
 
 import sys
-import os
 import argparse
+
+yesterday = datetime.timestamp(datetime.now()) - 86400
+tomorrow = datetime.timestamp(datetime.now()) + (7 * 86400)
 
 # t = tested
 # v = vax
@@ -69,9 +72,41 @@ pass_data2 = {
         }
     },
     1: "AT",
-    4: 1624458597,
-    6: 1624285797,
+    4: yesterday,
+    6: tomorrow,
 }
+
+
+pass_data3 = {
+        4: 1683849600,
+        6: 1635501173,
+        1: "IT",
+        -260: {
+            1: {
+                "t": [
+                    {
+                        "sc": "2021-10-29T11:40:00+02:00",
+                        "ma": "1268",
+                        "tt": "LP217198-3",
+                        "co": "IT",
+                        "tc": "PINCOPALLO SRL",
+                        "ci": "01ITFF9EECC5890441F5AC77BA97A5577C22#6",
+                        "is": "Ministero della Salute",
+                        "tg": "840539006",
+                        "tr": "260415000",
+                    }
+                ],
+                "nam": {
+                    "fnt": "DOE",
+                    "fn": "DOE",
+                    "gnt": "JOHN",
+                    "gn": "JOHN",
+                },
+                "ver": "1.3.0",
+                "dob": "1991-04-25",
+            }
+        },
+    }
 
 
 def main():
@@ -82,7 +117,7 @@ def main():
 
     for i, p in enumerate(payloads):
         pass_data[1] = p.encode()
-        msg = get_cose(pass_data2)
+        msg = get_cose(pass_data3)
         msg = add_cose_key(msg, PRIVKEY)
         msg = flynn(msg.encode())
         msg = b45(msg)
@@ -101,7 +136,8 @@ def cmd():
     4 : XXE
     5 : String Fuzzing
     6 : SSI Injection
-    7 : LFI / Directory Traversal""",
+    7 : LFI / Directory Traversal
+    8 : Test""",
         epilog="Pay attention everywhere, even in the dumbest spot",
     )
     sgroup = parser.add_argument_group("Options for QRGen")
@@ -110,7 +146,7 @@ def cmd():
         "-l",
         type=int,
         help="Set wordlist to use",
-        choices=[0, 1, 2, 3, 4, 5, 6, 7],
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8],
     )
     sgroup.add_argument(
         "--wordlist", "-w", type=str, default=None, help="Use a custom wordlist"

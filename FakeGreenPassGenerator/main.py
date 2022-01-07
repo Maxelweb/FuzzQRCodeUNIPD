@@ -82,36 +82,37 @@ pass_data2 = {
 
 # Structure should be valid
 
-pass_data3 = {
-        4: 1683849600,
-        6: 1635501173,
-        1: "%#0123456x%08x%x%s%p%n%d%o%u%c%h%l%q%j%z%Z%t%i%e%g%f%a%C%S%08x%%#0123456x%%x%%s%%p%%n%%d%%o%%u%%c%%h%%l%%q%%j%%z%%Z%%t%%i%%e%%g%%f%%a%%C%%S%%08x",
-        -260: {
-            1: {
-                "t": [
-                    {
-                        "sc": "2022-01-06T11:40:00+02:00",
-                        "ma": "1268",
-                        "tt": "LP217198-3",
-                        "co": "IT",
-                        "tc": "PINCOPALLO SRL",
-                        "ci": "01ITFF9EECC5890441F5AC77BA97A5577C22#6",
-                        "is": "Ministero della Salute",
-                        "tg": "840539006",
-                        "tr": "260415000",
-                    }
-                ],
-                "nam": {
-                    "fnt": "DOE",
-                    "fn": "DOE",
-                    "gnt": "JOHN",
-                    "gn": "JOHN",
-                },
-                "ver": "1.3.0",
-                "dob": "1991-04-25",
-            }
-        },
-    }
+def getPass(data: str):
+    return {
+            4: 1683849600,
+            6: 1635501173,
+            1: "IT",
+            -260: {
+                1: {
+                    "t": [
+                        {
+                            "sc": "2022-01-06T11:40:00+02:00",
+                            "ma": "1268",
+                            "tt": "LP217198-3",
+                            "co": "IT",
+                            "tc": "PINCOPALLO SRL",
+                            "ci": "01ITFF9EECC5890441F5AC77BA97A5577C22#6",
+                            "is": "Ministero della Salute",
+                            "tg": "840539006",
+                            "tr": "260415000",
+                        }
+                    ],
+                    "nam": {
+                        "fnt": "JOHN",
+                        "fn": "JOHN",
+                        "gnt": "SNOW",
+                        "gn": "SNOW",
+                    },
+                    "ver": "1.3.0",
+                    "dob": "2000-01-01",
+                }
+            },
+        }
 
 
 def main():
@@ -121,8 +122,7 @@ def main():
     payloads = get_words(opt)
 
     for i, p in enumerate(payloads):
-        # pass_data3[1] = p.encode() # TODO: to change in something more advanced
-        msg = get_cose(pass_data3)
+        msg = get_cose(getPass(p))
         msg = add_cose_key(msg, PRIVKEY)
         msg = flynn(msg.encode(), HEADER)
         msg = b45(msg)

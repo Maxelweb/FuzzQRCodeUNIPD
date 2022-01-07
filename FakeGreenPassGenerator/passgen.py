@@ -14,11 +14,12 @@ from cose.headers import Algorithm, KID
 from cose.algorithms import EdDSA
 from cose.keys.curves import Ed25519
 from cose.keys import OKPKey
+from base64 import b64decode
 
 
 def get_cose(data):
     return Sign1Message(
-        phdr={Algorithm: EdDSA, KID: b"kid2"}, payload=flynn_encoder.dumps(data)
+        phdr={Algorithm: EdDSA, KID: b64decode("NJpCsMLQco4=")}, payload=flynn_encoder.dumps(data)
     )
 
 

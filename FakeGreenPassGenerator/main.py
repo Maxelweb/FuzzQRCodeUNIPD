@@ -85,12 +85,12 @@ pass_data2 = {
 pass_data3 = {
         4: 1683849600,
         6: 1635501173,
-        1: "IT",
+        1: "%#0123456x%08x%x%s%p%n%d%o%u%c%h%l%q%j%z%Z%t%i%e%g%f%a%C%S%08x%%#0123456x%%x%%s%%p%%n%%d%%o%%u%%c%%h%%l%%q%%j%%z%%Z%%t%%i%%e%%g%%f%%a%%C%%S%%08x",
         -260: {
             1: {
                 "t": [
                     {
-                        "sc": "2021-10-29T11:40:00+02:00",
+                        "sc": "2022-01-06T11:40:00+02:00",
                         "ma": "1268",
                         "tt": "LP217198-3",
                         "co": "IT",
@@ -121,7 +121,7 @@ def main():
     payloads = get_words(opt)
 
     for i, p in enumerate(payloads):
-        pass_data3[1] = p.encode() # TODO: to change in something more advanced
+        # pass_data3[1] = p.encode() # TODO: to change in something more advanced
         msg = get_cose(pass_data3)
         msg = add_cose_key(msg, PRIVKEY)
         msg = flynn(msg.encode(), HEADER)

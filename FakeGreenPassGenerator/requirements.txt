@@ -1,0 +1,8 @@
+qrcode
+Pillow
+argparse
+base45
+flynn
+cose
+PyPDF2 
+pyzbar

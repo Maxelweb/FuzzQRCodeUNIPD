@@ -14,6 +14,11 @@ Analysis on QR codes as Attack Vectors - Computer &amp; Network Security Course 
 
 ## Progress
 
+**2022-01-15**
+
+- QR Code fuzzer for the Android app using Appium
+- Fake Green Pass generator
+
 
 **2021-12-28**
 

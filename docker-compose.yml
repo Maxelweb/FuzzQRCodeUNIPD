@@ -6,3 +6,9 @@ services:
     build: ./QRCodeGenerator
     volumes:
       - "./QRCodeGenerator:/app"
+  gpgen:
+    container_name: FakeGreenPassGenerator
+    build: ./FakeGreenPassGenerator
+    volumes:
+      - "./FakeGreenPassGenerator:/app"
+

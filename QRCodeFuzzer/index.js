@@ -6,11 +6,11 @@ const opts = {
   port: 4723,
   capabilities: {
     platformName: "Android",
-    platformVersion: "30",
-    deviceName: "Android Emulator",
-    app: "./verificac19.apk",
+    platformVersion: "11.0",
+    deviceName: "Pixel 2 API 30",
+    app: "verificac19.apk",
     appPackage: "it.ministerodellasalute.verificaC19",
-    appActivity: ".view.TextFields",
+    appActivity: "MainActivity",
     automationName: "UiAutomator2"
   }
 };

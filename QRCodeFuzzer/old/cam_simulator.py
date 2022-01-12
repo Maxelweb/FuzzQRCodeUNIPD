@@ -12,7 +12,7 @@ for filename in os.listdir(folder):
 
 h, w, _ = qrcodes[0].shape
 print(h, w)
-with pyvirtualcam.Camera(width=1920, height=1080, fps=30, fmt=pyvirtualcam.PixelFormat.RGB) as cam:
+with pyvirtualcam.Camera(width=1920, height=1080, fps=30, fmt=pyvirtualcam.PixelFormat.RGB, backend="v4l2loopback") as cam:
     print('Virtual camera device: ' + cam.device)
     while True:
         # frame = qrcodes[0]
@@ -21,5 +21,4 @@ with pyvirtualcam.Camera(width=1920, height=1080, fps=30, fmt=pyvirtualcam.Pixel
         # frame[:,:,:3] = cam.frames_sent % 255 # grayscale animation
         # frame[:,:,2] = 255
         cam.send(frame)
-        cam.sleep_until_next_frame()
         cam.sleep_until_next_frame()

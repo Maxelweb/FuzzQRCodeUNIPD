@@ -22,4 +22,3 @@ with pyvirtualcam.Camera(width=1920, height=1080, fps=30) as cam:
         # frame[:,:,2] = 255
         cam.send(frame)
         cam.sleep_until_next_frame()
-        cam.sleep_until_next_frame()

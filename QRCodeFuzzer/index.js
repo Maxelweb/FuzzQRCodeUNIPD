@@ -1,12 +1,14 @@
 const wdio = require("webdriverio");
 const assert = require("assert");
 
+var fuzzer = require('./fuzzerFile.js')
+
 const opts = {
   path: '/wd/hub',
   port: 4723,
   capabilities: {
     platformName: "Android",
-    platformVersion: "10.0",
+    platformVersion: "11.0",
     deviceName: "TestDevice",
     app: "verificac19.apk",
     appPackage: "it.ministerodellasalute.verificaC19",
@@ -14,6 +16,8 @@ const opts = {
     automationName: "UiAutomator2"
   }
 };
+
+
 
 async function main () {
   const client = await wdio.remote(opts);
@@ -24,6 +28,10 @@ async function main () {
   assert.strictEqual(value,"Hello World!");
 
   await client.deleteSession();
+
 }
 
+
 main();
+
+

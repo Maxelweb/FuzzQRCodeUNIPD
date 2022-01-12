@@ -42,7 +42,7 @@ def get_words(opt):
     return payloads
 
 
-def print_qrs(payload, i):
+def print_qrs(payload, t, i):
     img = qrcode.make(payload)
-    img.save(f"genqr/payload-{i}.png")
+    img.save(f"genqr/{t}-{i}.png")
     print(f"Generated {i} payloads!")

@@ -12,6 +12,18 @@ tomorrow = datetime.timestamp(datetime.now()) + (7 * 86400)
 # v = vax
 # r = recovery
 
+fuzz_type = {
+    0 : "SQL_Injections",
+    1 : "XSS",
+    2 : "Command_Injection",
+    3 : "Format_String",
+    4 : "XXE",
+    5 : "String_Fuzzing",
+    6 : "SSI_Injection",
+    7 : "LFI_Directory_Traversal",
+    8 : "Test",
+}
+
 PRIVKEY = b"9d370d925476752486ab0e4a8e088228e493da12d1586fafae9f35880dbcfe03"
 HEADER = b""
 
@@ -103,8 +115,8 @@ def getPass(data: str):
                         }
                     ],
                     "nam": {
-                        "fnt": "JOHN",
-                        "fn": "JOHN",
+                        "fnt": data,
+                        "fn": data,
                         "gnt": "SNOW",
                         "gn": "SNOW",
                     },
@@ -128,23 +140,14 @@ def main():
         msg = b45(msg)
         msg = b"HC1:" + msg
         print("RAW certificate: ", msg)
-        print_qrs(msg, i)
+        print_qrs(msg, fuzz_type[opt.list], i)
         print("-"*20)
 
 
 def cmd():
     parser = argparse.ArgumentParser(
         description="Tool to generate Malformed QRCodes for fuzzing QRCode parsers/reader",
-        usage="""main.py -l [number]\nusage: main.py -w [/path/to/custom/wordlist]\n\nPayload lists:
-    0 : SQL Injections
-    1 : XSS
-    2 : Command Injection
-    3 : Format String
-    4 : XXE
-    5 : String Fuzzing
-    6 : SSI Injection
-    7 : LFI / Directory Traversal
-    8 : Test""",
+        usage=f"main.py -l [number]\nusage: main.py -w [/path/to/custom/wordlist]\n\nPayload lists: \n {fuzz_type}",
         epilog="Pay attention everywhere, even in the dumbest spot",
     )
     sgroup = parser.add_argument_group("Options for QRGen")

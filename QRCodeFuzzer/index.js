@@ -18,12 +18,14 @@ const opts = {
   port: 4723,
   capabilities: {
     "platformName": "Android",
-    "platformVersion": "11.0",
+    // "platformVersion": "11.0",
+    "platformVersion": "12.0",
     "deviceName": "TestDevice",
     "app": "verificac19.apk",
     "appPackage": "it.ministerodellasalute.verificaC19",
    "appActivity": "ui.FirstActivity",
-    "automationName": "UiAutomator2"
+    "automationName": "UiAutomator2",
+    "noReset": "true"
   }
 };
 
@@ -32,23 +34,38 @@ const opts = {
 async function main () {
   const driver = await wdio.remote(opts); 
 
-  let el2 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/scan_mode_button");
-  await driver.elementClick(el2.ELEMENT);
-  let el3 = await driver.findElement("xpath", "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout/android.widget.ListView/android.widget.CheckedTextView[1]");
-  await driver.elementClick(el3.ELEMENT);
-  // await driver.setTimeout({'pageLoad': 5000,'script': 1000 });
-  let el4 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/settings");
-  await driver.elementClick(el2.ELEMENT);
-  let el5 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/totem_switch");
-  await driver.elementClick(el5.ELEMENT);
-  let el6 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/back_image");
-  await driver.elementClick(el6.ELEMENT);
+  // let el2 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/scan_mode_button");
+  // await driver.elementClick(el2.ELEMENT);
+  // let el3 = await driver.findElement("xpath", "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout/android.widget.ListView/android.widget.CheckedTextView[1]");
+  // await driver.elementClick(el3.ELEMENT);
+  // // await driver.setTimeout({'pageLoad': 5000,'script': 1000 });
+  // let el4 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/settings");
+  // await driver.elementClick(el4.ELEMENT);
+
+  await driver.setTimeout({ 'implicit': 1000 });
+
+  // let el5 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/totem_switch");
+  // await driver.elementClick(el5.ELEMENT);
+  // let el6 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/back_image");
+  // await driver.elementClick(el6.ELEMENT);
+  // await driver.setTimeout({ 'implicit': 15000 });
+  // let el8 = await driver.findElement("id", "android:id/button1");
+  // await driver.elementClick(el8.ELEMENT);
+  // await driver.setTimeout({ 'implicit': 15000 });
+
+  // try {
+  //   let el8 = await driver.findElement("id", "android:id/button1");
+  //   await driver.elementClick(el8.ELEMENT);
+  // } catch (e) {}
   let el7 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
   await driver.elementClick(el7.ELEMENT);
-  let el8 = await driver.findElement("id", "android:id/button1");
-  await driver.elementClick(el8.ELEMENT);
-  let el9 = await driver.findElement("id", "com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-  await driver.elementClick(el9.ELEMENT);
+
+  // let el9 = await driver.findElement("id", "com.android.permissioncontroller:id/permission_allow");
+  // await driver.elementClick(el9.ELEMENT);
+
+  // Wait for the qr to be scanned
+  await driver.setTimeout({ 'implicit': 1000 });
+
   let el10 = await driver.findElement("xpath", "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.View");
   await driver.elementClick(el10.ELEMENT);
   let el11 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/back_image");
@@ -56,6 +73,7 @@ async function main () {
   let el12 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
   await driver.elementClick(el12.ELEMENT);
 
+// TODO: checks and iterate ... 
 
 //   let el2 = driver.element("it.ministerodellasalute.verificaC19:id/scan_mode_button");
 // el2.click();

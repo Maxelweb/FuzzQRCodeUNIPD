@@ -32,7 +32,7 @@ async function main () {
   let el7 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
   await driver.elementClick(el7.ELEMENT);
 
-  while (true){
+  for (i=0; i<fuzzer.size(); ++i){
     // Wait for the qr to be scanned
     await driver.setTimeout({ 'implicit': 5000 });
 

@@ -43,7 +43,10 @@ class MyHandler(FileSystemEventHandler):
                     cv2.imwrite("qr_result.png", image)
                     print("> Ok:", qr_files[self.count])
 
-                    self.count += 1
+                    if self.count >= len(qr_imgs)-1:
+                        self.count = 0
+                    else:
+                        self.count += 1
             except:
                 # JSON decoding throws some errors, but then works, dunno why
                 pass
@@ -65,6 +68,7 @@ def main():
     fuzzer = {}
     fuzzer["status"] = 0
     fuzzer["file"] = qr_files[0]
+    fuzzer["size"] = len(qr_files)
     f = open(fuzzer_file, 'w', encoding='utf-8')
     json.dump(fuzzer, f, ensure_ascii=False, indent=4)
     f.close()

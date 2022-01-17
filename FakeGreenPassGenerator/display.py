@@ -16,7 +16,8 @@ qr_files = []
 
 
 # ---------------- EDIT EVENT HANDLER ----------------
-class MyHandler(FileSystemEventHandler):
+#class MyHandler(FileSystemEventHandler):
+class FileEditHandler():
     def __init__(self):
         self.count = 0
 
@@ -71,49 +72,57 @@ def main():
     window = tk.Tk()
     window.title("Join")
     window.geometry("500x500")
-    window.configure(background='black')
+    window.configure(background='white')
 
-    qrcode = pyqrcode.create("hello there")
-    
-    img = tk.BitmapImage(data = qrcode.xbm(scale=8))
+    def genqr(text="test"):
+        qrcode = pyqrcode.create(text)
+        return tk.BitmapImage(data = qrcode.xbm(scale=8))
 
-    # Not working
-    # qt = qrcode.terminal(quiet_zone=1)
-    
-    #Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
-    #img = ImageTk.PhotoImage(Image.open(path))
-
-    #The Label widget is a standard Tkinter widget used to display a text or image on the screen.
+    img = genqr("testing test")
     panel = tk.Label(window, image = img)
-
-    #The Pack geometry manager packs widgets in rows or columns.
     panel.pack(side = "bottom", fill = "both", expand = "yes")
 
     #Start the GUI
+    
+    # OK: ADD UPDATE LOOP FOR TKINTER THAT CALLBACKS A FUNCTION EVERY SECOND
+    # https://stackoverflow.com/questions/27123676/how-to-update-python-tkinter-window
+
+    def update():
+        img2 = genqr("provaaaaa")
+        panel.config(image=img2)
+        panel.image = img2 #IPER MEGA IMPORTANT
+        window.after(2000, update)
+
+    window.after(2000, update)
     window.mainloop()
 
-    # Initialize JSON file
-    fuzzer = {}
-    fuzzer["status"] = 0
-    fuzzer["file"] = qr_files[0]
-    fuzzer["size"] = len(qr_files)
-    f = open(fuzzer_file, 'w', encoding='utf-8')
-    json.dump(fuzzer, f, ensure_ascii=False, indent=4)
-    f.close()
+
+    def initialize():
+        # Initialize JSON file
+        fuzzer = {}
+        fuzzer["status"] = 0
+        fuzzer["file"] = qr_files[0]
+        fuzzer["size"] = len(qr_files)
+        f = open(fuzzer_file, 'w', encoding='utf-8')
+        json.dump(fuzzer, f, ensure_ascii=False, indent=4)
+        f.close()
+
+
+   
 
     # Start edit event-handler on the folder
     # (didn't work with the single file, dunno why)
-    file_modified_event = MyHandler()
-    observer = Observer()
-    observer.schedule(file_modified_event, "./")
-    observer.start()
-    try:
-        while True:
-            # Check every 1 sec
-            time.sleep(1)
-    except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
+    # file_modified_event = MyHandler()
+    # observer = Observer()
+    # observer.schedule(file_modified_event, "./")
+    # observer.start()
+    # try:
+    #     while True:
+    #         # Check every 1 sec
+    #         time.sleep(1)
+    # except KeyboardInterrupt:
+    #     observer.stop()
+    # observer.join()
 
 
 if __name__ == "__main__":

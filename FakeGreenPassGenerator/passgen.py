@@ -16,6 +16,54 @@ from cose.keys.curves import Ed25519
 from cose.keys import OKPKey
 from base64 import b64decode
 
+PRIVKEY = b"9d370d925476752486ab0e4a8e088228e493da12d1586fafae9f35880dbcfe03"
+HEADER = b""
+
+# --- Legend GP types ---
+# t = tested
+# v = vax
+# r = recovery
+# -----------------------
+
+
+
+# TODO: test with current today date
+
+# yesterday = datetime.timestamp(datetime.now()) - 86400
+# tomorrow = datetime.timestamp(datetime.now()) + (7 * 86400)
+
+def get_pass(data: str):
+    return {
+            4: 1683849600,
+            6: 1635501173,
+            1: "IT",
+            -260: {
+                1: {
+                    "t": [
+                        {
+                            "sc": "2022-01-06T11:40:00+02:00",
+                            "ma": "1268",
+                            "tt": "LP217198-3",
+                            "co": "IT",
+                            "tc": "PINCOPALLO SRL",
+                            "ci": "01ITFF9EECC5890441F5AC77BA97A5577C22#6",
+                            "is": "Ministero della Salute",
+                            "tg": "840539006",
+                            "tr": "260415000",
+                        }
+                    ],
+                    "nam": {
+                        "fnt": data,
+                        "fn": data,
+                        "gnt": "SNOW",
+                        "gn": "SNOW",
+                    },
+                    "ver": "1.3.0",
+                    "dob": "2000-01-01",
+                }
+            },
+        }
+
 
 def get_cose(data):
     return Sign1Message(

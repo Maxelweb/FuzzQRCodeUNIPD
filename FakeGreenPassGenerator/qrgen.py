@@ -19,6 +19,18 @@ lists = [
     "words/test.txt" # for testing purpose
 ]
 
+fuzz_type = {
+    0 : "SQL_Injections",
+    1 : "XSS",
+    2 : "Command_Injection",
+    3 : "Format_String",
+    4 : "XXE",
+    5 : "String_Fuzzing",
+    6 : "SSI_Injection",
+    7 : "LFI_Directory_Traversal",
+    8 : "Test", # for testing purpose
+}
+
 
 def make_dirs():
     try:

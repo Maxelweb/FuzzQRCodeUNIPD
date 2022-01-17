@@ -6,7 +6,7 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-fuzzer_file = "./fuzzer.json"
+fuzzer_file = "./data/fuzzer.json"
 qr_folder = "../FakeGreenPassGenerator/genqr"
 qr_imgs = []
 qr_files = []

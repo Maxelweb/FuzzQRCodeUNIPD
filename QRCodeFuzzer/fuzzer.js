@@ -1,7 +1,7 @@
 const exp = require('constants');
 const fs = require('fs');
 const { get } = require('http');
-const _fuzzer_file = "./fuzzer.json";
+const _fuzzer_file = "./data/fuzzer.json";
 const _screen_path = "screen/";
 
 // Logic of status

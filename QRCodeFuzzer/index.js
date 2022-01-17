@@ -1,7 +1,7 @@
 const wdio = require("webdriverio");
 const assert = require("assert");
 
-var fuzzer = require('./fuzzerFile.js');
+var fuzzer = require('./fuzzer.js');
 
 const opts = {
   path: '/wd/hub',

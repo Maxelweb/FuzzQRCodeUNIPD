@@ -76,7 +76,11 @@ def main():
         msg = b45(msg)
         msg = b"HC1:" + msg
         print("RAW certificate: ", msg)
-        print_qrs(msg, fuzz_type[opt.list], i)
+        
+        if(opt != None and opt.display):
+            pass
+        else:
+            print_qrs(msg, fuzz_type[opt.list], i)
         print("-"*20)
 
 
@@ -92,10 +96,13 @@ def cmd():
         "-l",
         type=int,
         help="Set wordlist to use",
-        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8],
+        choices=fuzz_type.keys(),
     )
     sgroup.add_argument(
         "--wordlist", "-w", type=str, default=None, help="Use a custom wordlist"
+    )
+    sgroup.add_argument(
+        "--display", "-d", type=str, default=None, help="Display Mode for QR Code Fuzzing"
     )
     opt = parser.parse_args()
     if len(sys.argv) == 1:

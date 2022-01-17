@@ -2,6 +2,7 @@ import os
 import cv2
 import json
 import time
+import pyqrcode
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -54,6 +55,7 @@ class MyHandler(FileSystemEventHandler):
 
 # --------------------- MAIN ---------------------
 def main():
+
     # Load all images
     for filename in sorted(os.listdir(qr_folder), key=len):
         img = cv2.imread(os.path.join(qr_folder,filename))

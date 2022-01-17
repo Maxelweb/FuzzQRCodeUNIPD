@@ -1,7 +1,7 @@
 const wdio = require("webdriverio");
 const assert = require("assert");
 
-var fuzzer = require('./fuzzerFile.js')
+var fuzzer = require('./fuzzerFile.js');
 
 const opts = {
   path: '/wd/hub',
@@ -21,35 +21,30 @@ const opts = {
   }
 };
 
-
-
 async function main () {
   const driver = await wdio.remote(opts); 
 
-  await driver.setTimeout({ 'implicit': 1000 });
+  // Wait before crashing if not finding an element
+  await driver.setTimeout({ 'implicit': 10000 });
 
   // Click "Scan QR" button
   let el7 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
   await driver.elementClick(el7.ELEMENT);
 
-  for (i=0; i<fuzzer.size(); ++i){
-    // Wait for the qr to be scanned
-    await driver.setTimeout({ 'implicit': 5000 });
+  var n = fuzzer.size();
+  for (i=0; i<n; ++i){
 
     // Wait result window 
-    // ------------ FIXME: maybe to change 
-    await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/scrollView3");
+    await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/checkmark");
 
-    await driver.setTimeout({ 'implicit': 1000 });
+    // Await for the script before taking a screenshot
+    await new Promise(r => setTimeout(r, 750));
 
     // Take screenshot
     let image = await driver.takeScreenshot();
 
     // Save screenshot to file
-    let path = "screen/" + fuzzer.readFile().file + ".png";
-    require('fs').writeFile(path, image, 'base64', function(err) {
-        console.log(err);
-    });
+    fuzzer.saveScreenshot(image);
 
     // Update QR
     fuzzer.requestNewQR();
@@ -57,6 +52,9 @@ async function main () {
     // Go back
     await driver.back();
   }
+
+  // Close
+  await driver.deleteSession();
 }
 
 

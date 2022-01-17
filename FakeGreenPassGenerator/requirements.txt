@@ -6,3 +6,4 @@ flynn
 cose
 PyPDF2 
 pyzbar
+pypng

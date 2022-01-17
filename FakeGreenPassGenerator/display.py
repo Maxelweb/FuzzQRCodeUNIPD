@@ -3,11 +3,13 @@ import cv2
 import json
 import time
 import pyqrcode
+import tkinter as tk
+from PIL import ImageTk, Image
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-fuzzer_file = "./data/fuzzer.json"
+fuzzer_file = "../QRCodeFuzzer/data/fuzzer.json"
 qr_folder = "../FakeGreenPassGenerator/genqr"
 qr_imgs = []
 qr_files = []
@@ -41,7 +43,7 @@ class MyHandler(FileSystemEventHandler):
                     f.close()
 
                     # Update image
-                    cv2.imwrite("qr_result.png", image)
+                    # cv2.imwrite("qr_result.png", image)
                     print("> Ok:", qr_files[self.count])
 
                     if self.count >= len(qr_imgs)-1:
@@ -57,15 +59,39 @@ class MyHandler(FileSystemEventHandler):
 def main():
 
     # Load all images
-    for filename in sorted(os.listdir(qr_folder), key=len):
-        img = cv2.imread(os.path.join(qr_folder,filename))
-        if img is not None:
-            qr_imgs.append(img)
-            qr_files.append(filename.replace(".png", ""))
+    # for filename in sorted(os.listdir(qr_folder), key=len):
+    #     img = cv2.imread(os.path.join(qr_folder,filename))
+    #     if img is not None:
+    #         qr_imgs.append(img)
+    #         qr_files.append(filename.replace(".png", ""))
 
-    # Save img with the 1st qr-code
-    cv2.imwrite("qr_result.png", qr_imgs[0])
+    # # Save img with the 1st qr-code
+    # cv2.imwrite("qr_result.png", qr_imgs[0])
     
+    window = tk.Tk()
+    window.title("Join")
+    window.geometry("500x500")
+    window.configure(background='black')
+
+    qrcode = pyqrcode.create("hello there")
+    
+    img = tk.BitmapImage(data = qrcode.xbm(scale=8))
+
+    # Not working
+    # qt = qrcode.terminal(quiet_zone=1)
+    
+    #Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
+    #img = ImageTk.PhotoImage(Image.open(path))
+
+    #The Label widget is a standard Tkinter widget used to display a text or image on the screen.
+    panel = tk.Label(window, image = img)
+
+    #The Pack geometry manager packs widgets in rows or columns.
+    panel.pack(side = "bottom", fill = "both", expand = "yes")
+
+    #Start the GUI
+    window.mainloop()
+
     # Initialize JSON file
     fuzzer = {}
     fuzzer["status"] = 0

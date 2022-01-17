@@ -60,6 +60,14 @@ def main():
 
     # Save img with the 1st qr-code
     cv2.imwrite("qr_result.png", qr_imgs[0])
+    
+    # Initialize JSON file
+    fuzzer = {}
+    fuzzer["status"] = 0
+    fuzzer["file"] = qr_files[0]
+    f = open(fuzzer_file, 'w', encoding='utf-8')
+    json.dump(fuzzer, f, ensure_ascii=False, indent=4)
+    f.close()
 
     # Start edit event-handler on the folder
     # (didn't work with the single file, dunno why)

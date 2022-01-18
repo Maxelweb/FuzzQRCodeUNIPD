@@ -15,8 +15,9 @@ import argparse
 import json
 import pyqrcode
 import tkinter as tk
+import os
 
-
+update_time = 500
 fuzzer_file = "../QRCodeFuzzer/data/fuzzer.json"
 qr_imgs = []
 qr_files = []
@@ -26,82 +27,76 @@ qr_files = []
 #class MyHandler(FileSystemEventHandler):
 class FileHandler():
     def __init__(self):
-        self.count = 0
+        self.fuzzer = []
         self.initialize()
         self.iterator = 0
 
     def next(self):
-        if(len(qr_files)-1 > self.iterator):
+        if not self.hasNotNext():
             self.iterator += 1
-            return True
-        return False
 
+    def hasNotNext(self):
+        return len(qr_files) <= self.iterator
+        
     def currentFilename(self):
-        return qr_files[self.count]
+        return qr_files[self.iterator]
 
     def initialize(self):
         # Initialize JSON file
         fuzzer = {}
         fuzzer["status"] = 0
-        fuzzer["file"] = qr_files[0]
+        fuzzer["file"] = "Starting"
         fuzzer["size"] = len(qr_files)
         f = open(fuzzer_file, 'w', encoding='utf-8')
         json.dump(fuzzer, f, ensure_ascii=False, indent=4)
         f.close()
+        self.fuzzer = fuzzer
 
-    def on_modified(self):
-            # Read JSON file
-            f = open(fuzzer_file, 'r', encoding='utf-8')
-            string = f.read()
-            try: 
-                # Decode from JSON
-                fuzzer = json.loads(string)
+    def checker(self):
 
-                if fuzzer["status"] == 1:
-                    # Update image and counter
-                    #image = qr_imgs[self.count]
+        # currentTime = os.path.getmtime(fuzzer_file)
 
-                    # Set "status" back to 0 and update file name
-                    fuzzer["status"] = 0
-                    fuzzer["file"] = qr_files[self.count]
+        # Read JSON file
+        f = open(fuzzer_file, 'r', encoding='utf-8')
+        string = f.read()
+        try: 
+            # Decode from JSON
+            fuzzer = json.loads(string)
 
-                    # Update JSON file
-                    f = open(fuzzer_file, 'w', encoding='utf-8')
-                    json.dump(fuzzer, f, ensure_ascii=False, indent=4)
-                    f.close()
+            if fuzzer["status"] == 1 & fuzzer["status"] != self.fuzzer["status"]:
 
-                    # Update image
-                    # cv2.imwrite("qr_result.png", image)
-                    print("> Ok:", qr_files[self.count])
+                # Set "status" back to 0 and update file name
+                fuzzer["status"] = 0
+                fuzzer["file"] = qr_files[self.iterator]
 
-                    if self.count >= len(qr_files)-1:
-                        self.count = 0
-                    else:
-                        self.count += 1
-            except:
-                # JSON decoding throws some errors, but then works, dunno why
-                pass
+                # Update JSON file
+                f = open(fuzzer_file, 'w', encoding='utf-8')
+                json.dump(fuzzer, f, ensure_ascii=False, indent=4)
+                f.close()
+
+
+                # Update value
+                self.fuzzer = fuzzer
+                print("> Ok:", qr_files[self.iterator])
+
+                return True
+        except:
+            # JSON decoding throws some errors, but then works, dunno why
+            pass
+
+        return False
+        
 
 
 # --------------------- MAIN ---------------------
-def main():
-
-    # Load all images
-    # for filename in sorted(os.listdir(qr_folder), key=len):
-    #     img = cv2.imread(os.path.join(qr_folder,filename))
-    #     if img is not None:
-    #         qr_imgs.append(img)
-    #         qr_files.append(filename.replace(".png", ""))
-
-    # # Save img with the 1st qr-code
-    # cv2.imwrite("qr_result.png", qr_imgs[0])
-    
+def main():   
     
     opt = cmd()
     payloads = get_words(opt)
 
-    for i in payloads:
-        qr_files.append(fuzz_type[opt.list] + "-" + i)
+
+    for i, _ in enumerate(payloads):
+        qr_files.append(fuzz_type[opt.list] + "-" + str(i))
 
     file = FileHandler()
 
@@ -111,56 +106,47 @@ def main():
         msg = flynn(msg.encode(), HEADER)
         msg = b45(msg)
         msg = b"HC1:" + msg
-        print("RAW certificate: ", msg)
+        print("RAW Certificate: ", msg)
         print("-"*20)
-        return msg, file.next()
+        return msg
+
+    def close():
+        print("Done")
+        window.destroy()
 
 
     def update():
-        gp, status = gengp()
-        img2 = genqr(gp)
-        panel.config(image=img2)
-        panel.image = img2 #IPER MEGA IMPORTANT
-        if not status:
-            print("End of QR codes")
-            window.destroy()
+        if not file.checker():
+            if file.hasNotNext():
+                print("End of QR codes, closing in 10 seconds...")
+                window.after(10000, close)
+            else:
+                window.after(update_time, update)
         else:
-            window.after(1000, update)
+            gp = gengp()
+            img2 = genqr(gp)
+            panel.config(image=img2)
+            panel.image = img2 #IPER MEGA IMPORTANT
+            file.next()
+            window.after(update_time, update)
 
     def genqr(text="test"):
         qrcode = pyqrcode.create(text)
-        return tk.BitmapImage(data = qrcode.xbm(scale=8))
+        return tk.BitmapImage(data = qrcode.xbm(scale=4))
 
     
 
     window = tk.Tk()
     window.title("Display FakeGreenPass")
-    window.geometry("800x800")
+    window.geometry("600x600")
     window.configure(background='white')
 
-    img = genqr("Test")
+    img = genqr("test")
     panel = tk.Label(window, image = img)
     panel.pack(side = "bottom", fill = "both", expand = "yes")
 
-    window.after(1000, update)
+    window.after(update_time, update)
     window.mainloop()
-
-   
-
-    # # Start edit event-handler on the folder
-    # # (didn't work with the single file, dunno why)
-    # file_modified_event = MyHandler()
-    # observer = Observer()
-    # observer.schedule(file_modified_event, "./")
-    # observer.start()
-    # try:
-    #     while True:
-    #         # Check every 1 sec
-    #         time.sleep(1)
-    # except KeyboardInterrupt:
-    #     observer.stop()
-    # observer.join()
-
 
 def cmd():
     parser = argparse.ArgumentParser(

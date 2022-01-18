@@ -1,6 +1,6 @@
 #
 # Fake Green Pass Generator
-# -------------------------
+# ----------------------------
 
 
 from qrgen import *
@@ -22,7 +22,7 @@ def main():
         msg = flynn(msg.encode(), HEADER)
         msg = b45(msg)
         msg = b"HC1:" + msg
-        print("RAW certificate: ", msg)
+        print("RAW Certificate: ", msg)
         
         if(opt != None and opt.display):
             pass

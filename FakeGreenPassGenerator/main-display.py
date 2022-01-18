@@ -86,17 +86,29 @@ class FileHandler():
 def main():   
     
     opt = cmd()
-    payloads = get_words(opt)
+    payloads = []
 
-
-    for i, _ in enumerate(payloads):
-        qr_files.append(fuzz_type[opt.list] + "-" + str(i))
+    if opt.all != None:
+        
+        for j, f in enumerate(lists):
+            for i, s in enumerate(open(f, encoding='utf-8').readlines()):
+                qr_files.append(fuzz_type[j] + "-" + str(i))
+                payloads.append(s)
+                i += 1
+    
+    else:
+        payloads = get_words(opt)
+        for i, _ in enumerate(payloads):
+            if opt.list != None:
+                qr_files.append(fuzz_type[opt.list] + "-" + str(i))
+            else:
+                qr_files.append("All" + "-" + str(i))
 
     file = FileHandler()
 
     def genqr(text="test"):
-        qrcode = pyqrcode.create(text)
-        return tk.BitmapImage(data = qrcode.xbm(scale=4))
+        qrcode = pyqrcode.create(text, error='L')
+        return tk.BitmapImage(data = qrcode.xbm(scale=7))
 
     def gengp():
         msg = get_cose(get_pass(payloads[file.iterator]))
@@ -130,7 +142,7 @@ def main():
 
     window = tk.Tk()
     window.title("Display FakeGreenPass")
-    window.geometry("600x600")
+    window.geometry("800x800")
     window.configure(background='white')
 
     img = genqr("test")
@@ -153,6 +165,7 @@ def cmd():
         help="Set wordlist to use",
         choices=fuzz_type.keys(),
     )
+    sgroup.add_argument('-a', '--all', nargs='?', const='')
     opt = parser.parse_args()
     if len(sys.argv) == 1:
         parser.print_help()

@@ -1,5 +1,5 @@
 {
-    "status": 1,
-    "file": "Test-2",
-    "size": 3
+    "status": 0,
+    "file": "XSS-90",
+    "size": 1837
 }

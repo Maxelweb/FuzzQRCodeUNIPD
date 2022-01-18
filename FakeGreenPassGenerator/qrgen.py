@@ -48,7 +48,7 @@ def make_dirs():
 def get_words(opt):
     if opt.list != None:
         payloads = open(lists[opt.list]).readlines()
-    elif opt.wordlist:
+    elif opt.wordlist != None:
         payloads = open(str(opt.wordlist)).readlines()
     payloads = [w.strip() for w in payloads]
     return payloads

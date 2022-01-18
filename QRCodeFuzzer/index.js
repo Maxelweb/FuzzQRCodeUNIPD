@@ -28,17 +28,19 @@ async function main () {
   await driver.setTimeout({ 'implicit': 10000 });
 
   // Click "Scan QR" button
-  let el7 = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
-  await driver.elementClick(el7.ELEMENT);
+  let qrbutton = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
+  await driver.elementClick(qrbutton.ELEMENT);
 
   var n = fuzzer.size();
   for (i=0; i<n; ++i){
+
+    console.log("> QR code under analysis: " + fuzzer.readFile().file);
 
     // Wait result window 
     await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/checkmark");
 
     // Await for the script before taking a screenshot
-    await new Promise(r => setTimeout(r, 750));
+    await new Promise(r => setTimeout(r, 200));
 
     // Take screenshot
     let image = await driver.takeScreenshot();
@@ -49,8 +51,19 @@ async function main () {
     // Update QR
     fuzzer.requestNewQR();
 
+    // Await for the script before continuing
+    await new Promise(r => setTimeout(r, 200));
+
     // Go back
-    await driver.back();
+    // await driver.back();
+    
+    try {
+      let backbutton = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/close_button");
+      await driver.elementClick(backbutton.ELEMENT);
+    } catch (e) {
+      console.log("-------------------> ERROR: no close button!");
+
+    }
   }
 
   // Close

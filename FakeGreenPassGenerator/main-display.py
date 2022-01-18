@@ -2,20 +2,14 @@
 # Display for FakeGreenPass generation
 # --------------------
 
-
-#from watchdog.observers import Observer
-#from watchdog.events import FileSystemEventHandler
-
 from qrgen import *
 from passgen import *
-from datetime import datetime
 
 import sys
 import argparse
 import json
 import pyqrcode
 import tkinter as tk
-import os
 
 update_time = 500
 fuzzer_file = "../QRCodeFuzzer/data/fuzzer.json"
@@ -54,6 +48,7 @@ class FileHandler():
 
     def checker(self):
 
+        # TODO: improvment! save last update-time and use currentTime to check if file has been updated
         # currentTime = os.path.getmtime(fuzzer_file)
 
         # Read JSON file
@@ -73,7 +68,6 @@ class FileHandler():
                 f = open(fuzzer_file, 'w', encoding='utf-8')
                 json.dump(fuzzer, f, ensure_ascii=False, indent=4)
                 f.close()
-
 
                 # Update value
                 self.fuzzer = fuzzer
@@ -100,6 +94,10 @@ def main():
 
     file = FileHandler()
 
+    def genqr(text="test"):
+        qrcode = pyqrcode.create(text)
+        return tk.BitmapImage(data = qrcode.xbm(scale=4))
+
     def gengp():
         msg = get_cose(get_pass(payloads[file.iterator]))
         msg = add_cose_key(msg, PRIVKEY)
@@ -109,10 +107,6 @@ def main():
         print("RAW Certificate: ", msg)
         print("-"*20)
         return msg
-
-    def close():
-        print("Done")
-        window.destroy()
 
 
     def update():
@@ -130,11 +124,9 @@ def main():
             file.next()
             window.after(update_time, update)
 
-    def genqr(text="test"):
-        qrcode = pyqrcode.create(text)
-        return tk.BitmapImage(data = qrcode.xbm(scale=4))
-
-    
+    def close():
+        print("Done")
+        window.destroy()
 
     window = tk.Tk()
     window.title("Display FakeGreenPass")

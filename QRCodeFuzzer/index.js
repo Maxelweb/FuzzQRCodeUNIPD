@@ -56,13 +56,13 @@ async function main () {
 
     // Go back
     // await driver.back();
-    
+   
+    // FIXME: to fix this, since the back-button is not shown in the screen with big strings
     try {
       let backbutton = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/close_button");
       await driver.elementClick(backbutton.ELEMENT);
     } catch (e) {
       console.log("-------------------> ERROR: no close button!");
-
     }
   }
 

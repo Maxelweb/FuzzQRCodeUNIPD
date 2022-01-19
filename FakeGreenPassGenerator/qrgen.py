@@ -19,6 +19,18 @@ lists = [
     "words/test.txt" # for testing purpose
 ]
 
+fuzz_type = {
+    0 : "SQL_Injections",
+    1 : "XSS",
+    2 : "Command_Injection",
+    3 : "Format_String",
+    4 : "XXE",
+    5 : "String_Fuzzing",
+    6 : "SSI_Injection",
+    7 : "LFI_Directory_Traversal",
+    8 : "Test", # for testing purpose
+}
+
 
 def make_dirs():
     try:
@@ -36,13 +48,13 @@ def make_dirs():
 def get_words(opt):
     if opt.list != None:
         payloads = open(lists[opt.list]).readlines()
-    elif opt.wordlist:
+    elif opt.wordlist != None:
         payloads = open(str(opt.wordlist)).readlines()
     payloads = [w.strip() for w in payloads]
     return payloads
 
 
-def print_qrs(payload, i):
+def print_qrs(payload, t, i):
     img = qrcode.make(payload)
-    img.save(f"genqr/payload-{i}.png")
+    img.save(f"genqr/{t}-{i}.png")
     print(f"Generated {i} payloads!")

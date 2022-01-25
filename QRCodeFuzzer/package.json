@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "webdriverio": "^7.16.12"
+    "webdriverio": "^7.16.13"
   },
   "devDependencies": {
     "mocha": "^9.1.3"

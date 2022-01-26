@@ -144,7 +144,7 @@ def main():
         window.destroy()
 
     window = tk.Tk()
-    window.title("Display FakeGreenPass")
+    window.title("FakeGreenPass - QR Code Visualizer")
     window.geometry("800x800")
     window.configure(background='white')
 

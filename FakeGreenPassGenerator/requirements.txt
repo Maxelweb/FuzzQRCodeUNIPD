@@ -7,3 +7,4 @@ cose
 PyPDF2 
 pyzbar
 pypng
+pyqrcode

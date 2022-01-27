@@ -14,6 +14,10 @@ Analysis on QR codes as Attack Vectors - Computer &amp; Network Security Course 
 
 ## Progress
 
+**2022-01-27**
+- Appium client and QR code visualizer are working
+- Test on new fuzzing dictionaries
+
 **2022-01-15**
 
 - QR Code fuzzer for the Android app using Appium

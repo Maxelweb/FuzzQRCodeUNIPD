@@ -7,6 +7,7 @@ Using this component it is possible to connect to an Appium Server with a runnin
 ### Requirements
 
 - Smartphone with Android
+- Android SDK installed (with `ANDROID_HOME` and `JAVA_HOME` environment paths correctly set)
 - NodeJS with `npm` (version 6.x+)
 - Appium Server (possibly the executable, otherwise install it with `npm`)
 - (optional) Appium Inspector (same, can be useful to generate macro sequence of actions)

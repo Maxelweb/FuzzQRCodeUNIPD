@@ -15,6 +15,7 @@ from cose.algorithms import EdDSA
 from cose.keys.curves import Ed25519
 from cose.keys import OKPKey
 from base64 import b64decode
+from datetime import *
 
 PRIVKEY = b"9d370d925476752486ab0e4a8e088228e493da12d1586fafae9f35880dbcfe03"
 HEADER = b""
@@ -29,8 +30,8 @@ HEADER = b""
 
 # TODO: test with current today date
 
-# yesterday = datetime.timestamp(datetime.now()) - 86400
-# tomorrow = datetime.timestamp(datetime.now()) + (7 * 86400)
+yesterday = datetime.timestamp(datetime.now()) - 86400
+tomorrow = datetime.timestamp(datetime.now()) + (7 * 86400)
 
 def get_pass(data: str):
     return {
@@ -55,11 +56,11 @@ def get_pass(data: str):
                     "nam": {
                         "fnt": data,
                         "fn": data,
-                        "gnt": "SNOW",
-                        "gn": "SNOW",
+                        "gnt": data,
+                        "gn": data,
                     },
                     "ver": "1.3.0",
-                    "dob": "2000-01-01",
+                    "dob": "2022-01-32",
                 }
             },
         }

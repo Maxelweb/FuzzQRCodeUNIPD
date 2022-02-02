@@ -2,7 +2,8 @@ const exp = require('constants');
 const fs = require('fs');
 const { get } = require('http');
 const _fuzzer_file = "./data/fuzzer.json";
-const _screen_path = "screen/";
+const _qrcoderr_file = "./data/qrcodes-error.txt";
+const _screen_path = "./data/screen/";
 
 // Logic of status
 //  0 = keep the same QR code shown
@@ -30,7 +31,14 @@ function updateAndGetSize() {
 function saveScreenshot(image) {
   readFuzzer();
   fs.writeFile(_screen_path + _fuzzer.file + ".png", image, 'base64', function(err) {
-    console.log(err);
+    console.log("[QRCodeFuzzer] " + err);
+  });
+}
+
+function errorLog() {
+  readFuzzer();
+  fs.appendFile(_qrcoderr_file, Date() + ": " +_fuzzer.file + "\n", (err) => {
+    console.log("[QRCodeFuzzer] " + err);
   });
 }
 
@@ -40,3 +48,4 @@ exports.readFile = readFuzzer;
 exports.requestNewQR = requestNewQRFuzzer;
 exports.size = updateAndGetSize;
 exports.saveScreenshot = saveScreenshot;
+exports.log = errorLog;

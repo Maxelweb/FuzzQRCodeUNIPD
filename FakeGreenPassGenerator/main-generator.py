@@ -37,7 +37,7 @@ def cmd():
         usage=f"main.py -l [number]\nusage: main.py -w [/path/to/custom/wordlist]\n\nPayload lists: \n {fuzz_type}",
         epilog="Pay attention everywhere, even in the dumbest spot",
     )
-    sgroup = parser.add_argument_group("Options for QRGen")
+    sgroup = parser.add_argument_group("Options for FuzzQR")
     sgroup.add_argument(
         "--list",
         "-l",

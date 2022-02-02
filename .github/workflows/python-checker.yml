@@ -5,7 +5,7 @@ on:
     branches: 
     - master
     paths:
-    - 'QRCodeGenerator/**'
+    - 'FakeGreenPassGenerator/**'
   pull_request:
     branches: 
     - 'feature/**'
@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env: 
-      working-dir: ./QRCodeGenerator
+      working-dir: ./FakeGreenPassGenerator
       generation-dir: genqr
 
     steps:
@@ -31,7 +31,7 @@ jobs:
         working-directory: ${{env.working-dir}}
       - name: execute python script
         run: |
-          python main.py -l 0
+          python main-generator.py -l 0
         working-directory: ${{env.working-dir}}
       - name: check correct image creation
         run: find -L ${{env.generation-dir}} -name "*.png"

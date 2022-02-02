@@ -11,6 +11,9 @@ import json
 import pyqrcode
 import tkinter as tk
 
+_qr_error = 'L'
+_qr_scale = 7
+
 update_time = 500
 fuzzer_file = "../QRCodeFuzzer/data/fuzzer.json"
 qr_imgs = []
@@ -107,8 +110,8 @@ def main():
     file = FileHandler()
 
     def genqr(text="test"):
-        qrcode = pyqrcode.create(text, error='L')
-        return tk.BitmapImage(data = qrcode.xbm(scale=7))
+        qrcode = pyqrcode.create(text, error=_qr_error)
+        return tk.BitmapImage(data = qrcode.xbm(scale=_qr_scale))
 
     def gengp():
         msg = get_cose(get_pass(payloads[file.iterator]))
@@ -141,7 +144,7 @@ def main():
         window.destroy()
 
     window = tk.Tk()
-    window.title("Display FakeGreenPass")
+    window.title("FakeGreenPass - QR Code Visualizer")
     window.geometry("800x800")
     window.configure(background='white')
 

@@ -31,17 +31,28 @@ async function main () {
   let qrbutton = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/qrButton");
   await driver.elementClick(qrbutton.ELEMENT);
 
+  let file = "start";
+
   var n = fuzzer.size();
   for (i=0; i<n; ++i){
 
-    console.log("> QR code under analysis: " + fuzzer.readFile().file);
+    file = fuzzer.readFile().file;
+    console.log("> QR code under analysis: " + file);
 
     // Wait result window 
-    await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/checkmark");
+    let checkmark = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/checkmark");
 
     // Await for the script before taking a screenshot
     await new Promise(r => setTimeout(r, 200));
 
+    if (checkmark && checkmark.error == "no such element" ) {
+      console.log("[QRCodeFuzzer] Unable to read QR Code: " + fuzzer.readFile().file);
+      fuzzer.log();
+      // Update QR
+      fuzzer.requestNewQR();
+      continue;
+    } 
+    
     // Take screenshot
     let image = await driver.takeScreenshot();
 
@@ -52,21 +63,12 @@ async function main () {
     fuzzer.requestNewQR();
 
     // Await for the script before continuing
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 300));
 
     // Go back
-    // await driver.back();
-   
-    // FIXME: to fix this, since the back-button is not shown in the screen with big strings
-    try {
-      let backbutton = await driver.findElement("id", "it.ministerodellasalute.verificaC19:id/close_button");
-      await driver.elementClick(backbutton.ELEMENT);
-    } catch (e) {
-      console.log("-------------------> ERROR: no close button!");
-    }
+    await driver.back();
   }
 
-  // Close
   await driver.deleteSession();
 }
 

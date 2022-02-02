@@ -5,7 +5,7 @@ on:
     branches: 
     - master
     paths:
-    - 'QRCodeGenerator/**'
+    - 'FakeGreenPassGenerator/**'
   pull_request:
     branches: 
     - 'feature/**'

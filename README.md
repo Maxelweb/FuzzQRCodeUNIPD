@@ -1,6 +1,9 @@
 # FuzzQR
 
-## QR Code Fuzzer Toolkit for Green Pass Checkers and Smartphone apps
+![FuzzQR banner](https://user-images.githubusercontent.com/34033090/152697122-2000350a-edfa-4129-b70a-15025e45162e.png)
+
+
+## QR Code Fuzzer Toolkit for Green Pass Checkers and Smartphone Apps
 
 ### Abstract
 
@@ -25,6 +28,13 @@ Computer &amp; Network Security Course @ UniPD 2021-2022
 ## Build status
 
 [![Python Checker](https://github.com/Maxelweb/FuzzQR/actions/workflows/python-checker.yml/badge.svg)](https://github.com/Maxelweb/FuzzQR/actions/workflows/python-checker.yml)
+
+## Installation
+
+Checkout each folder with the respective `README.md` file for the instructions.
+
+- `docs` contains documentation on green passes
+- `extra` contains extra script and git submodules of the used libraries
 
 ## Progress
 
@@ -53,6 +63,10 @@ Computer &amp; Network Security Course @ UniPD 2021-2022
 - Script creation to generate malevolous QR codes
 
 ## Credits
+
+The extra tools and libraries used for this projects are inside `extra/` folder. Credits are given to the respective authors.
+
+This project was developed by:
 
 - Federico Carboni
 - Mariano Sciacco

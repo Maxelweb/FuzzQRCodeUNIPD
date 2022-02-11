@@ -5,6 +5,7 @@
 
 ## QR Code Fuzzer Toolkit for Green Pass Checkers and Smartphone Apps
 
+
 ### Abstract
 
 In recent years, QR codes become popular for different
@@ -23,17 +24,23 @@ scan time of 3-4 seconds. Moreover, FuzzQR can be adapted for
 applications on both Android or iOS and custom dictionaries of
 fuzzing strings.
 
-Computer &amp; Network Security Course @ UniPD 2021-2022
+Advanced Topics in Computer &amp; Network Security Course (prof. [Mauro Conti](https://www.math.unipd.it/~conti/)) @ UniPD 2021-2022
+
+
+### Download the paper
+
+You can find the paper of this project here: [Download FuzzQR-Paper](https://github.com/Maxelweb/FuzzQR/blob/master/docs/FuzzQR-CarboniSciacco.pdf) (PDF, 2.5 MB)
+
 
 ## Build status
 
 [![Python Checker](https://github.com/Maxelweb/FuzzQR/actions/workflows/python-checker.yml/badge.svg)](https://github.com/Maxelweb/FuzzQR/actions/workflows/python-checker.yml)
 
-## Installation
+## Installation and usage
 
 Checkout each folder with the respective `README.md` file for the instructions.
 
-- `docs` contains documentation on green passes
+- `docs` contains documentation on green passes and the paper of this project
 - `extra` contains extra script and git submodules of the used libraries
 
 ## Progress
@@ -56,7 +63,7 @@ Checkout each folder with the respective `README.md` file for the instructions.
 
 **2021-12-28**
 
-> Try to hack the QRCode library or try to hack operations before the sign checking
+> Try to hack the QRCode library or operations before the sign checking
 
 - Analysis on QR Code Literature
 - General analysis on VerificaC19 app (on Android)
@@ -68,6 +75,8 @@ The extra tools and libraries used for this projects are inside `extra/` folder.
 
 This project was developed by:
 
-- Federico Carboni
-- Mariano Sciacco
-- Denis Donadel (project leader)
+- [Federico Carboni](https://www.linkedin.com/in/federico~carboni/)
+- [Mariano Sciacco](https://marianosciacco.it)
+- [Denis Donadel](https://scholar.google.com/citations?user=53lYd7BzRd8C) (project leader)
+
+If you want to cite this project in your paper, follow the citation guidelines for this repository. 

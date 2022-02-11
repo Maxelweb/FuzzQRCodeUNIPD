@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Sciacco
+    given-names: Mariano
+  - family-names: Carboni
+    given-names: Federico
+title: "FuzzQR - QR Code Fuzzing Toolkit for Smartphone apps"
+version: 1.0.1
+date-released: 2022-02-06

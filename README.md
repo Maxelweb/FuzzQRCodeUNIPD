@@ -75,7 +75,7 @@ The extra tools and libraries used for this projects are inside `extra/` folder.
 
 This project was developed by:
 
-- [Federico Carboni](https://www.linkedin.com/in/federico~carboni/)
+- [Federico Carboni](https://github.com/Kero2375)
 - [Mariano Sciacco](https://marianosciacco.it)
 - [Denis Donadel](https://scholar.google.com/citations?user=53lYd7BzRd8C) (project leader)
 

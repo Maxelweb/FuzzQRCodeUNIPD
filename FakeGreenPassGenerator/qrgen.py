@@ -16,6 +16,10 @@ lists = [
     "words/strfuzz.txt",
     "words/ssi.txt",
     "words/lfi.txt",
+    "words/json.txt",
+    "words/metachars.txt",
+    "naughty-strings.txt",
+    "special-chars.txt",
     "words/test.txt" # for testing purpose
 ]
 
@@ -28,7 +32,11 @@ fuzz_type = {
     5 : "String_Fuzzing",
     6 : "SSI_Injection",
     7 : "LFI_Directory_Traversal",
-    8 : "Test", # for testing purpose
+    8 : "JSON",
+    9 : "Metachars",
+    10: "Naughty_strings",
+    11: "Special_Chars",
+    12: "Test" # for testing purpose
 }
 
 
